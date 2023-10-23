@@ -1,0 +1,27 @@
+{
+    "tables": [
+
+      {
+        "id": "1",
+        "numer": "1",
+        "status": "busy",
+        "people": "2",
+        "bill": "$25"
+      },
+      {
+        "id": "1",
+        "numer": "2",
+        "status": "busy",
+        "people": "1",
+        "bill": "$15"
+      },
+      {
+        "id": "1",
+        "numer": "3",
+        "status": "free",
+        "people": "0",
+        "bill": "0"
+      }
+      
+    ]
+  }
