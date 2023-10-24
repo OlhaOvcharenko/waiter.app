@@ -2,6 +2,7 @@ import { Navbar } from "react-bootstrap"
 import  { Container } from "react-bootstrap";
 import { Nav } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
+import styles from '../NavBar/NavBar.module.scss';
 
 const NavBar = () => {
 
@@ -12,10 +13,10 @@ const NavBar = () => {
             <Navbar.Brand  className='text-white'>Waiter.app</Navbar.Brand>
             <Nav className="flex justify-content-end" >
                 <Nav.Link as={NavLink} to="/home" >
-                   <span>Home</span>
+                   <span className={styles.link}>Home</span>
                 </Nav.Link>
                 <Nav.Link as={NavLink} to="/about" >
-                   <span>About</span>
+                   <span className={styles.link}>About</span>
                 </Nav.Link>
             </Nav>
             </Container>
