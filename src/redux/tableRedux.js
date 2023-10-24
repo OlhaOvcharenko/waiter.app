@@ -1,4 +1,7 @@
 
+//selectors
+export const getAllTables = (state) => state.tables;
+
 // actions
 const createActionName = actionName => `app/posts/${actionName}`;
 const UPDATE_TABLES = createActionName('UPDATE_TABLES');
@@ -8,7 +11,7 @@ const UPDATE_TABLES = createActionName('UPDATE_TABLES');
 
 export const updateTables = payload => ({type: UPDATE_TABLES, payload});
 export const fetchTables = () => {
-    return() => {
+    return(dispatch) => {
         fetch( 'http://localhost:3131/tables')
 
         .then(res => res.json())
@@ -17,12 +20,12 @@ export const fetchTables = () => {
 }
 
 
-const tablesReducer = () => {
+const tablesReducer = (statePart = [], action) => {
 
     switch (action.type) {
 
       case UPDATE_TABLES:
-        return [...action, payload];
+        return [...action.payload];
     
       default:
         return statePart
