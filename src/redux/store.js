@@ -1,4 +1,5 @@
 import thunk from "redux-thunk";
+import tablesReducer from "./tableRedux";
 
 const subreducers = {
     tables: tablesReducer,
