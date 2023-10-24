@@ -1,10 +1,28 @@
+import { useSelector } from "react-redux";
+import { getAllTables } from "../../../redux/tableRedux";
+import { Stack } from "react-bootstrap";
+import  { Button } from "react-bootstrap";
 
+import  { Row } from "react-bootstrap";
 
 const AllTables = () => {
 
+    const tables =  useSelector((state) => getAllTables(state))
+
     return(
-        <div>AllTables</div>
+        <div>
+            <h1 className="mt-4">All Tables</h1>
+            <Row>
+            {tables.map((table) => (
+                <Stack  key={table.id}direction="horizontal" gap={3} className="border-bottom pt-3">
+                    <h2 className="p-2">Table {table.number}</h2>
+                    <p className="pt-3"><b>Status:</b> {table.status}</p>
+                    <Button className=" ms-auto">Show more</Button>
+                </Stack>
+            ))}
+            </Row>
+        </div>
     )
 }
 
-export default AllTables
+export default AllTables;

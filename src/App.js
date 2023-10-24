@@ -7,6 +7,7 @@ import Header from "./components/views/Header/Header";
 
 import { Route } from "react-router-dom";
 import { Routes } from "react-router-dom";
+import Footer from "./components/pages/Footer/Footer";
 
 
 const App = () => {
@@ -22,6 +23,7 @@ const App = () => {
         <Routes>
           <Route path="/home" element={<Home />}/>
         </Routes>
+        <Footer />
       </Container>
     </main>
   )
