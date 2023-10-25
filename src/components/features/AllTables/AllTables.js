@@ -15,7 +15,7 @@ const AllTables = () => {
             <Row>
             {tables.map((table) => (
                 <Stack  key={table.id}direction="horizontal" gap={3} className="border-bottom pt-3">
-                    <h2 className="p-2">Table {table.number}</h2>
+                    <h2 className="p-2">Table {table.id}</h2>
                     <p className="pt-3"><b>Status:</b> {table.status}</p>
                     <Link to={`/table/${table.id}`} className="ms-auto">
                         <Button variant="primary">Show  more</Button>
