@@ -8,6 +8,7 @@ import Header from "./components/views/Header/Header";
 import { Route } from "react-router-dom";
 import { Routes } from "react-router-dom";
 import Footer from "./components/pages/Footer/Footer";
+import SingleTable from "./components/features/SingleTable/SingleTable";
 
 
 const App = () => {
@@ -21,7 +22,8 @@ const App = () => {
       <Container >
         <Header   />
         <Routes>
-          <Route path="/home" element={<Home />}/>
+          <Route path="/" element={<Home />}/>
+          <Route path="/table/:tableId" element={<SingleTable />}/>
         </Routes>
         <Footer />
       </Container>

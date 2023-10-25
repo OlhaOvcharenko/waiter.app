@@ -12,7 +12,7 @@ const NavBar = () => {
             <Container>
             <Navbar.Brand  className='text-white'>Waiter.app</Navbar.Brand>
             <Nav className="flex justify-content-end" >
-                <Nav.Link as={NavLink} to="/home" >
+                <Nav.Link as={NavLink} to="/" >
                    <span className={styles.link}>Home</span>
                 </Nav.Link>
             </Nav>
