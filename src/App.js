@@ -8,7 +8,7 @@ import Header from "./components/views/Header/Header";
 import { Route } from "react-router-dom";
 import { Routes } from "react-router-dom";
 import Footer from "./components/pages/Footer/Footer";
-import SingleTable from "./components/features/SingleTable/SingleTable";
+import SingleTable from "./components/features/SingleTable/SingleTableForm";
 
 
 const App = () => {
