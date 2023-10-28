@@ -34,7 +34,7 @@ export const requestUpdateTableForm = (updatedTable) =>{
   };
 
   return(dispatch) => {
-  fetch(`http://localhost:3131/tables/:id`, options)
+  fetch(`http://localhost:3131/tables/${updatedTable.id}`, options)
     .then(() => dispatch(updateTableForm(updatedTable)));
   }
 };

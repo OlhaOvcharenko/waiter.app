@@ -32,8 +32,6 @@ const SingleTable = () => {
         dispatch(requestUpdateTableForm({ id, status, peopleAmount, maxPeopleAmount, bill}));
         navigate('/');
     };
-    
-    console.log(id, status, peopleAmount, 'singledata');
 
     return (
 
