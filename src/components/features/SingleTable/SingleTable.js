@@ -7,7 +7,6 @@ import  { Col } from "react-bootstrap";
 import { Stack } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import { useEffect } from "react";
-import { Navigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { getStatus } from "../../../redux/optiosStatusRedux";
 import { useState } from "react";
@@ -26,20 +25,19 @@ const SingleTable = () => {
 
     const options = useSelector((state) => getStatus(state));
 
-    const tables =  useSelector((state) => getAllTables(state));
-
     const [number, setNumber] = useState('');
     const [status, setStatus] = useState('');
     const [people, setPeople] = useState('');
     const [maxPeople, setMaxPeople] = useState('');
-    const [bill, setBill] = useState('');
+    const [bill, setBill] = useState(1);
+    //const [sumOfBill, setSum] = useState(false);
 
     useEffect(() => {
         if (table) {
             setNumber(table.number);
             setStatus(table.status);
-            setPeople(table.people);
-            setMaxPeople(table.maxPeople);
+            setPeople(table.peopleAmount);
+            setMaxPeople(table.maxPeopleAmount);
             setBill(table.bill);
         }
     }, [table, options]);
@@ -47,11 +45,23 @@ const SingleTable = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
         dispatch(requestUpdateTableForm({ status, people, maxPeople, bill}, tableId));
         navigate('/');
     };
 
-   
+    const handleStatusChange = (selectedStatus) => {
+      
+        setStatus(selectedStatus);
+      
+        if (selectedStatus === "Busy") {
+          setBill(0); // Set bill to 0 when the status is "Busy"
+        } else {
+          setBill(null); // Set bill to null (or any suitable initial value) when the status is not "Busy"
+        }
+    
+    }
+
     return (
 
         <div>  
@@ -63,7 +73,7 @@ const SingleTable = () => {
                     <Stack direction="horizontal" gap={2} className="mb-2">
                         <Form.Label ><b>Status:</b></Form.Label>
                         <Col sm={4} className="px-3" >
-                        <Form.Select value={status} onChange={e => setStatus(e.target.value)}>
+                        <Form.Select value={status} onChange={e => handleStatusChange(e.target.value)}>
                             <option></option>
                                 {options.map((option, index) => (
                                     <option key={index} value={option}>
@@ -83,13 +93,13 @@ const SingleTable = () => {
                         </Col>
                     </Stack>
 
-                    <Stack direction="horizontal" gap={3}>
+                    { bill !== null && <Stack direction="horizontal" gap={3}>
                         <Form.Label className="pt-1"><b>Bill:</b></Form.Label>
                         <Col xs={1} className="d-flex align-items-center mx-4 px-2" >
                             <p className="mb-0 mr-1 px-1" style={{ fontSize: '15px' }}>$</p>
                             <Form.Control className="form-control form-control-sm" value={bill} onChange={e => setBill(e.target.value)} />
                         </Col>
-                    </Stack>
+                    </Stack> }
 
                 </Form.Group>
                 <Button type="submit" variant="primary" className="mx-1 mt-5">Update</Button>
