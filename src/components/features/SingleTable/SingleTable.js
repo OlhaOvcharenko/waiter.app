@@ -27,18 +27,21 @@ const SingleTable = () => {
 
     const [number, setNumber] = useState('');
     const [status, setStatus] = useState('');
-    const [people, setPeople] = useState('');
-    const [maxPeople, setMaxPeople] = useState('');
-    const [bill, setBill] = useState(1);
-    //const [sumOfBill, setSum] = useState(false);
+    const [peopleAmount, setPeopleAmount] = useState('');
+    const [maxPeopleAmount, setMaxPeopleAmount] = useState('');
+    const [bill, setBill] = useState(0);
+    const [displayBill, setDisplayBill] = useState(false);
 
     useEffect(() => {
         if (table) {
             setNumber(table.number);
             setStatus(table.status);
-            setPeople(table.peopleAmount);
-            setMaxPeople(table.maxPeopleAmount);
+            setPeopleAmount(table.peopleAmount);
+            setMaxPeopleAmount(table.maxPeopleAmount);
             setBill(table.bill);
+            if (table.status === options[0]) {
+                setDisplayBill(true);
+            }
         }
     }, [table, options]);
 
@@ -46,20 +49,28 @@ const SingleTable = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        dispatch(requestUpdateTableForm({ status, people, maxPeople, bill}, tableId));
+        dispatch(requestUpdateTableForm({ status, peopleAmount, maxPeopleAmount, bill}, tableId));
         navigate('/');
     };
 
+
+    const handlePeopleAmount = (e) => {
+        if (!(status === options[1]) || !(status === options[2])) 
+            setPeopleAmount(e); 
+    }
+
     const handleStatusChange = (selectedStatus) => {
-      
+        setDisplayBill(false);
         setStatus(selectedStatus);
-      
-        if (selectedStatus === "Busy") {
-          setBill(0); // Set bill to 0 when the status is "Busy"
-        } else {
-          setBill(null); // Set bill to null (or any suitable initial value) when the status is not "Busy"
-        }
-    
+
+        if (selectedStatus === options[1] ||  selectedStatus === options[2]) 
+            setPeopleAmount(0);
+        
+
+        if (selectedStatus === options[0]) 
+            setDisplayBill(true);
+         
+        setBill('0');
     }
 
     return (
@@ -87,13 +98,13 @@ const SingleTable = () => {
                     <Stack direction="horizontal" gap={3} className="mb-2" style={{ width: '15rem' }}>
                         <Form.Label><b>People:</b></Form.Label>
                         <Col xs={5} className="d-flex align-items-center">
-                            <Form.Control className="form-control form-control-sm" value={people} onChange={e => setPeople(e.target.value)} />
+                            <Form.Control className="form-control form-control-sm" value={peopleAmount} onChange={e => handlePeopleAmount(e.target.value)} />
                             <p className="mb-0 mr-1 px-1" style={{ fontSize: '15px' }}>/</p>
-                            <Form.Control className="form-control form-control-sm" value={maxPeople} onChange={e => setMaxPeople(e.target.value)}/>
+                            <Form.Control className="form-control form-control-sm" value={maxPeopleAmount} onChange={e => setMaxPeopleAmount(e.target.value)}/>
                         </Col>
                     </Stack>
 
-                    { bill !== null && <Stack direction="horizontal" gap={3}>
+                    { displayBill && <Stack direction="horizontal" gap={3}>
                         <Form.Label className="pt-1"><b>Bill:</b></Form.Label>
                         <Col xs={1} className="d-flex align-items-center mx-4 px-2" >
                             <p className="mb-0 mr-1 px-1" style={{ fontSize: '15px' }}>$</p>
