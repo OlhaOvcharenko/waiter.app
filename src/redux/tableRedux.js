@@ -22,7 +22,9 @@ export const fetchTables = () => {
     }
 }
 
-export const requestUpdateTableForm = (updatedTable) => (dispatch) => {
+
+export const requestUpdateTableForm = (updatedTable) =>{
+
   const options = {
     method: 'PATCH',
     headers: {
@@ -31,8 +33,10 @@ export const requestUpdateTableForm = (updatedTable) => (dispatch) => {
     body: JSON.stringify(updatedTable),
   };
 
-  fetch(`http://localhost:3131/tables/${updatedTable.id}`, options)
+  return(dispatch) => {
+  fetch(`http://localhost:3131/tables/:id`, options)
     .then(() => dispatch(updateTableForm(updatedTable)));
+  }
 };
 
 

@@ -5,21 +5,35 @@ import { Stack } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { getTableById } from "../../../redux/tableRedux";
+import { requestUpdateTableForm } from "../../../redux/tableRedux";
 
-const SingleTable = ({ action, actionText, ... props}) => {
+
+const SingleTable = () => {
+
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+   
 
-    const [id, setId] = useState(props.tableId || '');
-    const [status, setTableStatus] = useState(props.status || '');
-    const [peopleAmount, setPeopleAmount] = useState(props.peopleAmount || '');
-    const [maxPeopleAmount, setMaxPeopleAmount] = useState(props.maxPeopleAmount || '');
-    const [bill, setBill] = useState(props.bill || '');
+    const { tableId } = useParams();
+
+    const tableData = useSelector((state) => getTableById(state, tableId));
+    console.log(tableData, 'TableData');
+
+    const [id, setId] = useState(tableData.tableId || '');
+    const [status, setTableStatus] = useState(tableData.status || '');
+    const [peopleAmount, setPeopleAmount] = useState(tableData.peopleAmount || '');
+    const [maxPeopleAmount, setMaxPeopleAmount] = useState(tableData.maxPeopleAmount || '');
+    const [bill, setBill] = useState(tableData.bill || '');
 
     const handleSubmit = () => {
-        dispatch(action({ id, status, peopleAmount, maxPeopleAmount, bill}));
+        dispatch(requestUpdateTableForm({ id, status, peopleAmount, maxPeopleAmount, bill}));
+        navigate('/');
     };
     
-    console.log(id, status, peopleAmount, actionText, 'singledata');
+    console.log(id, status, peopleAmount, 'singledata');
 
     return (
 
@@ -55,7 +69,7 @@ const SingleTable = ({ action, actionText, ... props}) => {
                     </Stack>
 
                 </Form.Group>
-                <Button type="submit" variant="primary" className="mx-1 mt-5">{actionText}</Button>
+                <Button type="submit" variant="primary" className="mx-1 mt-5">Update</Button>
             </Form>
        
         </div>
