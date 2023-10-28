@@ -27,6 +27,7 @@ const SingleTable = () => {
     const [peopleAmount, setPeopleAmount] = useState(tableData.peopleAmount || '');
     const [maxPeopleAmount, setMaxPeopleAmount] = useState(tableData.maxPeopleAmount || '');
     const [bill, setBill] = useState(tableData.bill || '');
+    
 
     const handleSubmit = () => {
         dispatch(requestUpdateTableForm({ id, status, peopleAmount, maxPeopleAmount, bill}));
