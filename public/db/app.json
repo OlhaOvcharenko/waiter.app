@@ -6,23 +6,29 @@
       "status": "Busy",
       "peopleAmount": "5",
       "maxPeopleAmount": "8",
-      "bill": "25"
+      "bill": "25",
+      "people": "2",
+      "maxPeople": "8"
     },
     {
       "id": "2",
       "number": "2",
-      "status": "Free",
+      "status": "Busy",
       "peopleAmount": 0,
       "maxPeopleAmount": 3,
-      "bill": 0
+      "bill": "40",
+      "people": "2",
+      "maxPeople": "4"
     },
     {
       "id": "3",
       "number": "3",
-      "status": "Busy",
+      "status": "Free",
       "peopleAmount": 2,
       "maxPeopleAmount": 3,
-      "bill": 45
+      "bill": "0",
+      "people": "0",
+      "maxPeople": "0"
     },
     {
       "id": "4",
