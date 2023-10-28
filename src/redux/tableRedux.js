@@ -2,12 +2,12 @@
 //selectors
 export const getAllTables = (state) => state.tables;
 export const getTableById = ({ tables }, tableId) => tables.find(table => table.id === tableId);
-export const getStatus = (state) => state.status;
 
 // actions
-const createActionName = actionName => `app/posts/${actionName}`;
+const createActionName = actionName => `app/tables/${actionName}`;
 const DATA_TABLES = createActionName('DATA_TABLES');
 const UPDATE_TABLE = createActionName('UPDATE_TABLE');
+
 
 // actions creators
 export const updateTableForm = payload => ({type: UPDATE_TABLE, payload});
@@ -15,17 +15,17 @@ export const updateTableForm = payload => ({type: UPDATE_TABLE, payload});
 export const dataTables = payload => ({type: DATA_TABLES, payload});
 
 export const fetchTables = () => {
-    return(dispatch) => {
-        fetch( 'http://localhost:3131/tables')
+  return(dispatch) => {
+      fetch( 'http://localhost:3131/tables')
 
-        .then(res => res.json())
-        .then(tables => dispatch(dataTables(tables)))
-    }
+      .then(res => res.json())
+      .then(tables => dispatch(dataTables(tables)))
+  }
 }
 
+export const requestUpdateTableForm = (updatedTable, tableId) =>{
 
-export const requestUpdateTableForm = (updatedTable) =>{
-
+  return(dispatch) => {
   const options = {
     method: 'PATCH',
     headers: {
@@ -34,10 +34,11 @@ export const requestUpdateTableForm = (updatedTable) =>{
     body: JSON.stringify(updatedTable),
   };
 
-  return(dispatch) => {
-  fetch(`http://localhost:3131/tables/${updatedTable.id}`, options)
+  
+  fetch(`http://localhost:3131/tables/`+ tableId, options)
     .then(() => dispatch(updateTableForm(updatedTable)));
   }
+
 };
 
 
@@ -47,7 +48,7 @@ const tablesReducer = (statePart = [], action) => {
 
       case DATA_TABLES:
         return [...action.payload];
-      
+
       case UPDATE_TABLE:
         return statePart.map(table => (table.id === action.payload.id ? { ...table, ...action.payload } : table));
 

@@ -5,10 +5,12 @@ import { fetchTables } from "./redux/tableRedux";
 import Home from "./components/pages/Home/Home";
 import Header from "./components/views/Header/Header";
 
+import Footer from "./components/pages/Footer/Footer";
+import Table from "./components/pages/Table/Table";
+
 import { Route } from "react-router-dom";
 import { Routes } from "react-router-dom";
-import Footer from "./components/pages/Footer/Footer";
-import SingleTable from "./components/features/SingleTable/SingleTableForm";
+import { fetchStatus } from "./redux/optiosStatusRedux";
 
 
 
@@ -16,9 +18,16 @@ const App = () => {
 
   const dispatch = useDispatch();
 
+      
   useEffect(() => {
     dispatch(fetchTables());
   }, [dispatch]);
+
+
+  useEffect(() => {
+    dispatch(fetchStatus());
+  }, [dispatch]);
+
 
 
   return (
@@ -27,7 +36,7 @@ const App = () => {
         <Header   />
         <Routes>
           <Route path="/" element={<Home />}/>
-          <Route path="/table/:tableId" element={<SingleTable />}/>
+          <Route path="/table/:tableId" element={<Table />}/>
         </Routes>
         <Footer />
       </Container>
