@@ -55,7 +55,7 @@ const SingleTable = () => {
     }, [table, options]);
 
 
-    const handleSubmit = (e) => {
+    const handleSubmit = () => {
         dispatch(requestUpdateTableForm({ status, peopleAmount, maxPeopleAmount, bill}, tableId));
         navigate('/');
     };

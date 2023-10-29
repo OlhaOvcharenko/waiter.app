@@ -5,23 +5,22 @@ import  { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import  { Row } from "react-bootstrap";
 import { Spinner } from "react-bootstrap";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useState } from "react";
 
 const AllTables = () => {
 
-    const tables =  useSelector((state) => getAllTables(state))
+
+    const tables = useSelector((state) => getAllTables(state));
 
     const [loading, setLoading] = useState(true);
   
     useEffect(() => {
       // Simulate an asynchronous operation, e.g., fetching data
       setTimeout(() => {
-        // After the data is loaded or some other operation is complete
-        setLoading(false); // Set loading state to false
+        setLoading(false); 
       }, 300); 
     }, []);
-
 
     return(
         <div>

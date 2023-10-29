@@ -24,7 +24,6 @@ const App = () => {
   useEffect(() => dispatch(fetchStatus()), [dispatch]);
 
 
-
   return (
     <main>
       <Container >
