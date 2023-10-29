@@ -12,7 +12,7 @@ import { getStatus } from "../../../redux/optiosStatusRedux";
 import { useState } from "react";
 import { requestUpdateTableForm } from "../../../redux/tableRedux";
 import { useForm } from "react-hook-form";
-import { Navigate } from "react-router-dom";
+import { Spinner } from "react-bootstrap";
 
 const SingleTable = () => {
 
@@ -25,14 +25,21 @@ const SingleTable = () => {
 
     const options = useSelector((state) => getStatus(state));
 
+    const { register, handleSubmit: validate, formState: { errors } } = useForm();
+
     const [number, setNumber] = useState('');
     const [status, setStatus] = useState('');
     const [peopleAmount, setPeopleAmount] = useState('');
     const [maxPeopleAmount, setMaxPeopleAmount] = useState('');
     const [bill, setBill] = useState(0);
     const [displayBill, setDisplayBill] = useState(false);
-
-    const { register, handleSubmit: validate, formState: { errors } } = useForm();
+    const [loading, setLoading] = useState(true);
+  
+    useEffect(() => {
+      setTimeout(() => {
+        setLoading(false); 
+      },300); 
+    }, []);
 
     useEffect(() => {
         if (table) {
@@ -91,11 +98,18 @@ const SingleTable = () => {
 
     if (!table) {
         navigate('/');
+        return null;
     }
 
    
     return(
-        <div>  
+        <div> 
+
+            {loading && <Button variant="tuned-light">
+                <Spinner animation="border" variant="primary" size="lg" />
+                Loading ...
+            </Button>}
+
             <h1 className="py-4">Table{number}</h1>
             <Form style={{ width: '50rem' }} onSubmit={validate(handleSubmit)} >
 

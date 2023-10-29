@@ -11,8 +11,9 @@ const UPDATE_TABLE = createActionName('UPDATE_TABLE');
 
 // actions creators
 export const updateTableForm = payload => ({type: UPDATE_TABLE, payload});
-
 export const dataTables = payload => ({type: DATA_TABLES, payload});
+
+
 
 export const fetchTables = () => {
   return(dispatch) => {
@@ -24,7 +25,6 @@ export const fetchTables = () => {
 }
 
 export const requestUpdateTableForm = (updatedTable, tableId) =>{
-
   return(dispatch) => {
   const options = {
     method: 'PATCH',
@@ -34,11 +34,9 @@ export const requestUpdateTableForm = (updatedTable, tableId) =>{
     body: JSON.stringify(updatedTable),
   };
 
-  
   fetch(`http://localhost:3131/tables/`+ tableId, options)
     .then(() => dispatch(updateTableForm(updatedTable)));
   }
-
 };
 
 
