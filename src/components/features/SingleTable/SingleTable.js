@@ -12,6 +12,7 @@ import { getStatus } from "../../../redux/optiosStatusRedux";
 import { useState } from "react";
 import { requestUpdateTableForm } from "../../../redux/tableRedux";
 import { useForm } from "react-hook-form";
+import { Navigate } from "react-router-dom";
 
 const SingleTable = () => {
 
@@ -19,7 +20,6 @@ const SingleTable = () => {
     const navigate = useNavigate();
 
     const { tableId } = useParams();
-
     const table = useSelector((state) => getTableById(state, tableId));
     console.log(table, 'TableData');
 
@@ -89,7 +89,12 @@ const SingleTable = () => {
         setBill('0');
     }
 
-    return (
+    if (!table) {
+        navigate('/');
+    }
+
+   
+    return(
         <div>  
             <h1 className="py-4">Table{number}</h1>
             <Form style={{ width: '50rem' }} onSubmit={validate(handleSubmit)} >
@@ -117,7 +122,6 @@ const SingleTable = () => {
                             {...register("peopleAmount",  { min: 0, max: 10 }, )}
                             value={peopleAmount} onChange={e => handlePeopleAmount(e.target.value)} />
 
-
                             <p className="mb-0 mr-1 px-1" style={{ fontSize: '15px' }}>/</p>
                             <Form.Control className="form-control form-control-sm" 
                             {...register("maxPeopleAmount",  { min: 0, max: 10 })}
@@ -140,7 +144,7 @@ const SingleTable = () => {
             </Form>
        
         </div>
-    )
+    );
 
 }
 

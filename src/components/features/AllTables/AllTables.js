@@ -10,6 +10,8 @@ const AllTables = () => {
 
     const tables =  useSelector((state) => getAllTables(state))
 
+    
+
     return(
         <div>
             <h1 className="mt-4">All Tables</h1>
