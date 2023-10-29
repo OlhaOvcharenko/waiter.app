@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { getStatus } from "../../../redux/optiosStatusRedux";
 import { useState } from "react";
 import { requestUpdateTableForm } from "../../../redux/tableRedux";
-import { getAllTables } from "../../../redux/tableRedux";
+import { useForm } from "react-hook-form";
 
 const SingleTable = () => {
 
@@ -32,6 +32,8 @@ const SingleTable = () => {
     const [bill, setBill] = useState(0);
     const [displayBill, setDisplayBill] = useState(false);
 
+    const { register, handleSubmit: validate, formState: { errors } } = useForm();
+
     useEffect(() => {
         if (table) {
             setNumber(table.number);
@@ -47,16 +49,30 @@ const SingleTable = () => {
 
 
     const handleSubmit = (e) => {
-        e.preventDefault();
-
         dispatch(requestUpdateTableForm({ status, peopleAmount, maxPeopleAmount, bill}, tableId));
         navigate('/');
     };
 
-
     const handlePeopleAmount = (e) => {
-        if (!(status === options[1]) || !(status === options[2])) 
-            setPeopleAmount(e); 
+        const newValue = parseInt(e);
+    
+        if (isNaN(newValue)) {
+            setPeopleAmount(0);
+        } else if (newValue > maxPeopleAmount) {
+            setPeopleAmount(maxPeopleAmount);
+        } else {
+            setPeopleAmount(newValue);
+        }
+    }
+    
+    const handleMaxPeople = (e) => {
+        const maxValue = parseInt(e);
+        
+        if (isNaN(maxValue)) {
+            setMaxPeopleAmount(0);
+        } else {
+            setMaxPeopleAmount(maxValue);
+        }
     }
 
     const handleStatusChange = (selectedStatus) => {
@@ -74,10 +90,9 @@ const SingleTable = () => {
     }
 
     return (
-
         <div>  
             <h1 className="py-4">Table{number}</h1>
-            <Form style={{ width: '50rem' }} onSubmit={handleSubmit} >
+            <Form style={{ width: '50rem' }} onSubmit={validate(handleSubmit)} >
 
                 <Form.Group as={Row} >
 
@@ -98,12 +113,20 @@ const SingleTable = () => {
                     <Stack direction="horizontal" gap={3} className="mb-2" style={{ width: '15rem' }}>
                         <Form.Label><b>People:</b></Form.Label>
                         <Col xs={5} className="d-flex align-items-center">
-                            <Form.Control className="form-control form-control-sm" value={peopleAmount} onChange={e => handlePeopleAmount(e.target.value)} />
+                            <Form.Control className="form-control form-control-sm" 
+                            {...register("peopleAmount",  { min: 0, max: 10 }, )}
+                            value={peopleAmount} onChange={e => handlePeopleAmount(e.target.value)} />
+
+
                             <p className="mb-0 mr-1 px-1" style={{ fontSize: '15px' }}>/</p>
-                            <Form.Control className="form-control form-control-sm" value={maxPeopleAmount} onChange={e => setMaxPeopleAmount(e.target.value)}/>
+                            <Form.Control className="form-control form-control-sm" 
+                            {...register("maxPeopleAmount",  { min: 0, max: 10 })}
+                            value={maxPeopleAmount} onChange={e => handleMaxPeople(e.target.value)}/>
                         </Col>
                     </Stack>
 
+                    { (errors.peopleAmount || errors.maxPeopleAmount) && <small className="form-text text-danger mb-2">Max people 10, min 0</small>}
+                    
                     { displayBill && <Stack direction="horizontal" gap={3}>
                         <Form.Label className="pt-1"><b>Bill:</b></Form.Label>
                         <Col xs={1} className="d-flex align-items-center mx-4 px-2" >
