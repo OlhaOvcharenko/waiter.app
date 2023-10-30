@@ -14,24 +14,25 @@ import { requestUpdateTableForm } from "../../../redux/tableRedux";
 import { useForm } from "react-hook-form";
 import { Spinner } from "react-bootstrap";
 
-const SingleTable = () => {
+const SingleTable = ({ action, actionText, ... props}) => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const { tableId } = useParams();
+    /*const { tableId } = useParams();
     const table = useSelector((state) => getTableById(state, tableId));
-    console.log(table, 'TableData');
+    console.log(table, 'TableData');*/
 
     const options = useSelector((state) => getStatus(state));
 
     const { register, handleSubmit: validate, formState: { errors } } = useForm();
+    const [number, setNumber] = useState(props.number || '');
+    const [tableId, setId] = useState(props.id || '');
+    const [status, setStatus] = useState (props.status|| '');
+    const [peopleAmount, setPeopleAmount] = useState(props.peopleAmount || 0);
+    const [maxPeopleAmount, setMaxPeopleAmount] = useState(props.maxPeopleAmount || 0);
+    const [bill, setBill] = useState(props.bill || 0);
 
-    const [number, setNumber] = useState('');
-    const [status, setStatus] = useState('');
-    const [peopleAmount, setPeopleAmount] = useState('');
-    const [maxPeopleAmount, setMaxPeopleAmount] = useState('');
-    const [bill, setBill] = useState(0);
     const [displayBill, setDisplayBill] = useState(false);
     const [loading, setLoading] = useState(true);
   
@@ -41,22 +42,25 @@ const SingleTable = () => {
       },300); 
     }, []);
 
-    useEffect(() => {
+
+    console.log('table', tableId, status, peopleAmount, maxPeopleAmount, bill);
+
+   /* useEffect(() => {
         if (table) {
-            setNumber(table.number);
-            setStatus(table.status);
-            setPeopleAmount(table.peopleAmount);
-            setMaxPeopleAmount(table.maxPeopleAmount);
-            setBill(table.bill);
-            if (table.status === options[0]) {
+            setId(tableId);
+            setStatus(status);
+            setPeopleAmount(peopleAmount);
+            setMaxPeopleAmount(maxPeopleAmount);
+            setBill(bill);
+            if (status === options[0]) {
                 setDisplayBill(true);
             }
         }
-    }, [table, options]);
+    }, [table, options]);*/
 
 
     const handleSubmit = () => {
-        dispatch(requestUpdateTableForm({ status, peopleAmount, maxPeopleAmount, bill}, tableId));
+        dispatch(action({ status, peopleAmount, maxPeopleAmount, bill}, tableId));
         navigate('/');
     };
 
@@ -94,11 +98,6 @@ const SingleTable = () => {
             setDisplayBill(true);
          
         setBill('0');
-    }
-
-    if (!table) {
-        navigate('/');
-        return null;
     }
 
    
@@ -154,7 +153,7 @@ const SingleTable = () => {
                     </Stack> }
 
                 </Form.Group>
-                <Button type="submit" variant="primary" className="mx-1 mt-5">Update</Button>
+                <Button type="submit" variant="primary" className="mx-1 mt-5">{actionText}</Button>
             </Form>
        
         </div>
