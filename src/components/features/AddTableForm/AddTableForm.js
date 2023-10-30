@@ -8,6 +8,7 @@ const AddTableForm = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
+
     const handleSubmit = (newTable) => {
       dispatch(addTableRequest(newTable));
       navigate('/');
@@ -15,9 +16,8 @@ const AddTableForm = () => {
   
 
     return (
-        <SingleTable action={handleSubmit} actionText="Add table"  />
+        <SingleTable action={handleSubmit} actionText="Add table" tableHeader = {'Add Table'} />
     )
-
 }
 
 export default AddTableForm;

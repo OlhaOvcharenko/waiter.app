@@ -26,8 +26,10 @@ const SingleTable = ({ action, actionText, ... props}) => {
     const options = useSelector((state) => getStatus(state));
 
     const { register, handleSubmit: validate, formState: { errors } } = useForm();
-    const [number, setNumber] = useState(props.number || '');
+   
     const [tableId, setId] = useState(props.id || '');
+
+    const [number, setNumber] = useState(props.number || '');
     const [status, setStatus] = useState (props.status|| '');
     const [peopleAmount, setPeopleAmount] = useState(props.peopleAmount || 0);
     const [maxPeopleAmount, setMaxPeopleAmount] = useState(props.maxPeopleAmount || 0);
@@ -45,28 +47,28 @@ const SingleTable = ({ action, actionText, ... props}) => {
 
     console.log('table', tableId, status, peopleAmount, maxPeopleAmount, bill);
 
-   /* useEffect(() => {
-        if (table) {
-            setId(tableId);
-            setStatus(status);
-            setPeopleAmount(peopleAmount);
-            setMaxPeopleAmount(maxPeopleAmount);
-            setBill(bill);
+   /*useEffect(() => {
+        if (props) {
+            setId(props.tableId);
+            setStatus(props.status);
+            setPeopleAmount(props.peopleAmount);
+            setMaxPeopleAmount(props.maxPeopleAmount);
+            setBill(props.bill);
             if (status === options[0]) {
                 setDisplayBill(true);
             }
         }
-    }, [table, options]);*/
+    }, [props, options]);*/
 
 
     const handleSubmit = () => {
-        dispatch(action({ status, peopleAmount, maxPeopleAmount, bill}, tableId));
-        navigate('/');
+       action({ status, peopleAmount, maxPeopleAmount, bill, tableId}, tableId);
+       navigate('/');
     };
 
     const handlePeopleAmount = (e) => {
         const newValue = parseInt(e);
-    
+
         if (isNaN(newValue)) {
             setPeopleAmount(0);
         } else if (newValue > maxPeopleAmount) {
@@ -109,7 +111,7 @@ const SingleTable = ({ action, actionText, ... props}) => {
                 Loading ...
             </Button>}
 
-            <h1 className="py-4">Table{number}</h1>
+            <h1 className="py-4">{props.tableHeader}</h1>
             <Form style={{ width: '50rem' }} onSubmit={validate(handleSubmit)} >
 
                 <Form.Group as={Row} >
@@ -143,14 +145,14 @@ const SingleTable = ({ action, actionText, ... props}) => {
                     </Stack>
 
                     { (errors.peopleAmount || errors.maxPeopleAmount) && <small className="form-text text-danger mb-2">Max people 10, min 0</small>}
-                    
-                    { displayBill && <Stack direction="horizontal" gap={3}>
+                
+                    {displayBill && <Stack direction="horizontal" gap={3}>
                         <Form.Label className="pt-1"><b>Bill:</b></Form.Label>
                         <Col xs={1} className="d-flex align-items-center mx-4 px-2" >
                             <p className="mb-0 mr-1 px-1" style={{ fontSize: '15px' }}>$</p>
                             <Form.Control className="form-control form-control-sm" value={bill} onChange={e => setBill(e.target.value)} />
                         </Col>
-                    </Stack> }
+                    </Stack>}
 
                 </Form.Group>
                 <Button type="submit" variant="primary" className="mx-1 mt-5">{actionText}</Button>

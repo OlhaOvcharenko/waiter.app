@@ -15,7 +15,7 @@ const UpdateTableForm = () => {
     const table = useSelector((state) => getTableById(state, tableId));
 
     const handleSubmit = (updatedTable) => {
-        dispatch(requestUpdateTableForm({ ...updatedTable, tableId}));
+        dispatch(requestUpdateTableForm(updatedTable, tableId));
         navigate('/');
     };
 
@@ -30,6 +30,7 @@ const UpdateTableForm = () => {
             maxPeopleAmount ={table.maxPeopleAmount}
             bill = { table.bill}
             tableData = { table.tableData}
+            tableHeader = {'Table'}
         />
 
     );

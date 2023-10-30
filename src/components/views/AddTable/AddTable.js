@@ -7,7 +7,6 @@ const AddTable = (props) => {
     
         <div>
 
-            <h1>Add Table</h1>
             <AddTableForm tableId={props.id} />
         
         </div>

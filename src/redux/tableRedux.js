@@ -9,13 +9,14 @@ export const getTableById = ({ tables }, tableId) => tables.find(table => table.
 const createActionName = actionName => `app/tables/${actionName}`;
 const DATA_TABLES = createActionName('DATA_TABLES');
 const UPDATE_TABLE = createActionName('UPDATE_TABLE');
-const ADD_TABLE = createActionName('ADD_TABLE')
+const ADD_TABLE = createActionName('ADD_TABLE');
+const DELETE_TABLE = createActionName('DELETE_TABLE')
 
 // actions creators
 export const updateTableForm = payload => ({type: UPDATE_TABLE, payload});
 export const dataTables = payload => ({type: DATA_TABLES, payload});
 export const addTable = payload => ({type: ADD_TABLE, payload});
-
+export const deleteTable = payload => ({type: DELETE_TABLE, payload});
 
 export const fetchTables = () => {
   return(dispatch) => {
@@ -52,10 +53,31 @@ export const addTableRequest = (newTable) => {
       body: JSON.stringify(newTable),
     };
   
-    fetch(`http://localhost:3131/tables/`, options)
+    fetch(`http://localhost:3131/tables` , options)
       .then(() => dispatch(addTable(newTable)));
   }
 };
+
+export const deleteTableRequest = (table) => {
+  return (dispatch) => {
+    const options = {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ table })
+    };
+
+    fetch(`http://localhost:3131/tables/`+table, options)
+      .then((response) => {
+        if (response.status === 204) {
+          // The HTTP 204 status indicates a successful deletion.
+          dispatch(deleteTable(table));
+        }
+      });
+  }
+}
+      
 
 
 
@@ -72,6 +94,10 @@ const tablesReducer = (statePart = [], action) => {
 
       case ADD_TABLE:
         return [...statePart, { ...action.payload, id: shortid() }];
+
+      case DELETE_TABLE:
+        return statePart.filter((table) => table.id !== action.payload);
+
       default:
         return statePart
     };
