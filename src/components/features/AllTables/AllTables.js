@@ -15,7 +15,7 @@ const AllTables = () => {
     
     return (
       <div>
-        <Stack direction="horizontal" gap={4}>
+        <Stack direction="horizontal" gap={{ sm: 2, lg: 4 }}className="justify-content-between align-items-center" >
           <div className="p-4">
             <h1>All Tables</h1>
           </div>
@@ -27,13 +27,13 @@ const AllTables = () => {
         </Stack>
         <Row>
             {tables.map((table) => (
-              <Stack key={table.id} direction="horizontal" gap={3} className="border-bottom pt-3">
+              <Stack key={table.id} direction="horizontal" gap = {{ sm: 2, lg: 3 }} className="border-bottom pt-3 ">
                 <h2 className="p-2"> Table {table.number}</h2>
-                <p className="pt-3"><b>Status:</b> {table.status}</p>
+                <p><b>Status:</b> {table.status}</p>
                 <Link to={`/table/${table.id}`} className="ms-auto">
-                  <Button variant="outline-primary">Show more</Button>
+                  <Button variant="outline-primary" >Show more</Button>
                 </Link>
-                <DeleteTable id={table.id} />
+                <DeleteTable id={table.id}  />
               </Stack>
             ))}
         </Row>
