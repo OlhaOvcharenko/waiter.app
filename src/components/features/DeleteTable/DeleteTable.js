@@ -3,9 +3,7 @@ import  { Button } from "react-bootstrap";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { deleteTableRequest } from "../../../redux/tableRedux";
-import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { getTableById } from "../../../redux/tableRedux";
+
 
 const DeleteTable = ({ id }) => {
 
@@ -18,8 +16,8 @@ const DeleteTable = ({ id }) => {
 
     const handleDeleteTable = () => {
        
-        dispatch(deleteTableRequest(id)); // Dispatch the action to remove the post
-        handleClose(); // Close the modal
+        dispatch(deleteTableRequest(id));
+        handleClose(); 
     };
 
     return(

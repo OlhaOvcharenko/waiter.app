@@ -20,7 +20,8 @@ const SingleTableForm = ({ action, actionText, ... props}) => {
     const options = useSelector((state) => getStatus(state));
 
     const { register, handleSubmit: validate, formState: { errors } } = useForm();
-   
+    
+    const [number, setNumber] = useState (props.number || '');
     const [status, setStatus] = useState (props.status|| '');
     const [peopleAmount, setPeopleAmount] = useState(props.peopleAmount || 0);
     const [maxPeopleAmount, setMaxPeopleAmount] = useState(props.maxPeopleAmount || 10);
@@ -43,11 +44,11 @@ const SingleTableForm = ({ action, actionText, ... props}) => {
     }, [options]);
 
     const handleSubmit = () => {
-       action({ status, peopleAmount, maxPeopleAmount, bill});
+       action({ status, peopleAmount, maxPeopleAmount, bill, number});
        navigate('/');
     };
 
-    console.log("data", status, peopleAmount, maxPeopleAmount, bill);
+    console.log("data", props.number, status, peopleAmount, maxPeopleAmount);
 
     const handlePeopleAmount = (e) => {
         const newValue = parseInt(e);
@@ -94,7 +95,7 @@ const SingleTableForm = ({ action, actionText, ... props}) => {
                 Loading ...
             </Button>}
 
-            <h1 className="py-4">{props.tableHeader}</h1>
+            <h1 className="py-4">Table {number}</h1>
             <Form style={{ width: '50rem' }} onSubmit={validate(handleSubmit)} >
 
                 <Form.Group as={Row} >

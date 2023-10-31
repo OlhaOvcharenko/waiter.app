@@ -5,7 +5,7 @@ import {  getTableById, updateTableFormRequest } from "../../../redux/tableRedux
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { Navigate } from "react-router-dom";
-import SingleTableForm from "../SingleTable/SingleTableForm";
+import SingleTableForm from "../SingleTableForm/SingleTableForm";
 
 const UpdateTableForm = () => {
 
@@ -29,6 +29,7 @@ const UpdateTableForm = () => {
             tableId = {tableId}
             action = {handleSubmit}
             actionText={'Update'}
+            number={table.number}
             status = {table.status}
             peopleAmount ={table.peopleAmount}
             maxPeopleAmount ={table.maxPeopleAmount}
