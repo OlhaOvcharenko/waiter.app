@@ -1,17 +1,17 @@
-import { useSelector } from "react-redux";
+
 import { getAllTables } from "../../../redux/tableRedux";
 import { Stack } from "react-bootstrap";
 import  { Button } from "react-bootstrap";
+import { Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import  { Row } from "react-bootstrap";
+import { useSelector } from "react-redux";
 import DeleteTable from "../DeleteTable/DeleteTable";
 
 
 const AllTables = () => {
 
     const tables = useSelector((state) => getAllTables(state));
-    console.log('tables', tables);
-
+  
     return (
       <div>
         <Stack direction="horizontal" gap={4}>

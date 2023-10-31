@@ -27,7 +27,7 @@ export const fetchTables = () => {
   }
 };
 
-export const requestUpdateTableForm = ({ updatedTable, tableId }) => {
+export const updateTableFormRequest = ({ updatedTable, tableId }) => {
   return (dispatch) => {
     const options = {
       method: 'PATCH',
