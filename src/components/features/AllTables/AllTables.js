@@ -21,7 +21,7 @@ const AllTables = () => {
           </div>
           <div className="p-2 ms-auto">
             <Link to="/table/add">
-              <Button variant="outline-info">Add table</Button>
+              <Button variant="primary">Add table</Button>
             </Link>
           </div>
         </Stack>
@@ -31,7 +31,7 @@ const AllTables = () => {
                 <h2 className="p-2"> Table {table.number}</h2>
                 <p className="pt-3"><b>Status:</b> {table.status}</p>
                 <Link to={`/table/${table.id}`} className="ms-auto">
-                  <Button variant="primary">Show more</Button>
+                  <Button variant="outline-primary">Show more</Button>
                 </Link>
                 <DeleteTable id={table.id} />
               </Stack>

@@ -22,7 +22,7 @@ const DeleteTable = ({ id }) => {
 
     return(
         <div>
-           <Button variant="outline-primary" onClick={handleShow} className={'mr-1'} >Delete table</Button>{' '}
+           <Button variant="outline-secondary" onClick={handleShow} className={'mr-1'} >Delete table</Button>{' '}
 
            <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
