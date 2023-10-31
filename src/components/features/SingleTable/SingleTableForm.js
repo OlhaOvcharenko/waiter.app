@@ -16,20 +16,11 @@ import { Spinner } from "react-bootstrap";
 
 const SingleTable = ({ action, actionText, ... props}) => {
 
-    const dispatch = useDispatch();
     const navigate = useNavigate();
-
-    /*const { tableId } = useParams();
-    const table = useSelector((state) => getTableById(state, tableId));
-    console.log(table, 'TableData');*/
-
     const options = useSelector((state) => getStatus(state));
 
     const { register, handleSubmit: validate, formState: { errors } } = useForm();
    
-    const [tableId, setId] = useState(props.id || '');
-
-    const [number, setNumber] = useState(props.number || '');
     const [status, setStatus] = useState (props.status|| '');
     const [peopleAmount, setPeopleAmount] = useState(props.peopleAmount || 0);
     const [maxPeopleAmount, setMaxPeopleAmount] = useState(props.maxPeopleAmount || 0);
@@ -45,8 +36,6 @@ const SingleTable = ({ action, actionText, ... props}) => {
     }, []);
 
 
-    console.log('table', tableId, status, peopleAmount, maxPeopleAmount, bill);
-
    /*useEffect(() => {
         if (props) {
             setId(props.tableId);
@@ -60,13 +49,14 @@ const SingleTable = ({ action, actionText, ... props}) => {
         }
     }, [props, options]);*/
 
-
     const handleSubmit = () => {
-       action({ status, peopleAmount, maxPeopleAmount, bill, tableId}, tableId);
+       action({ status, peopleAmount, maxPeopleAmount, bill});
        navigate('/');
     };
 
-    const handlePeopleAmount = (e) => {
+    console.log("data", status, peopleAmount, maxPeopleAmount, bill);
+
+    /*const handlePeopleAmount = (e) => {
         const newValue = parseInt(e);
 
         if (isNaN(newValue)) {
@@ -100,7 +90,7 @@ const SingleTable = ({ action, actionText, ... props}) => {
             setDisplayBill(true);
          
         setBill('0');
-    }
+    }*/
 
    
     return(
@@ -119,7 +109,7 @@ const SingleTable = ({ action, actionText, ... props}) => {
                     <Stack direction="horizontal" gap={2} className="mb-2">
                         <Form.Label ><b>Status:</b></Form.Label>
                         <Col sm={4} className="px-3" >
-                        <Form.Select value={status} onChange={e => handleStatusChange(e.target.value)}>
+                        <Form.Select value={status} onChange={e => setStatus(e.target.value)}>
                             <option></option>
                                 {options.map((option, index) => (
                                     <option key={index} value={option}>
@@ -135,24 +125,24 @@ const SingleTable = ({ action, actionText, ... props}) => {
                         <Col xs={5} className="d-flex align-items-center">
                             <Form.Control className="form-control form-control-sm" 
                             {...register("peopleAmount",  { min: 0, max: 10 }, )}
-                            value={peopleAmount} onChange={e => handlePeopleAmount(e.target.value)} />
+                            value={peopleAmount} onChange={e => setPeopleAmount(e.target.value)} />
 
                             <p className="mb-0 mr-1 px-1" style={{ fontSize: '15px' }}>/</p>
                             <Form.Control className="form-control form-control-sm" 
                             {...register("maxPeopleAmount",  { min: 0, max: 10 })}
-                            value={maxPeopleAmount} onChange={e => handleMaxPeople(e.target.value)}/>
+                            value={maxPeopleAmount} onChange={e => setMaxPeopleAmount(e.target.value)}/>
                         </Col>
                     </Stack>
 
                     { (errors.peopleAmount || errors.maxPeopleAmount) && <small className="form-text text-danger mb-2">Max people 10, min 0</small>}
                 
-                    {displayBill && <Stack direction="horizontal" gap={3}>
+                <Stack direction="horizontal" gap={3}>
                         <Form.Label className="pt-1"><b>Bill:</b></Form.Label>
                         <Col xs={1} className="d-flex align-items-center mx-4 px-2" >
                             <p className="mb-0 mr-1 px-1" style={{ fontSize: '15px' }}>$</p>
                             <Form.Control className="form-control form-control-sm" value={bill} onChange={e => setBill(e.target.value)} />
                         </Col>
-                    </Stack>}
+                    </Stack>
 
                 </Form.Group>
                 <Button type="submit" variant="primary" className="mx-1 mt-5">{actionText}</Button>

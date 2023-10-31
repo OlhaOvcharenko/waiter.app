@@ -1,12 +1,10 @@
 
 import UpdateTableForm from "../../features/UpdateTableForm/UpdateTableForm"
-import { useParams } from "react-router-dom";
 
-const UpdateTable = () => {
+const UpdateTable = ({tableId, updateTable}) => {
 
-    
     return(
-        <UpdateTableForm />
+        <UpdateTableForm tableId={tableId} data={updateTable} />
     )
 }
 

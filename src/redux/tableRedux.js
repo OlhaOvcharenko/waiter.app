@@ -27,20 +27,20 @@ export const fetchTables = () => {
   }
 };
 
-export const requestUpdateTableForm = (updatedTable, tableId) =>{
-  return(dispatch) => {
-  const options = {
-    method: 'PATCH',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(updatedTable),
-  };
+export const requestUpdateTableForm = ({ updatedTable, tableId }) => {
+  return (dispatch) => {
+    const options = {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updatedTable),
+    };
 
-  fetch(`http://localhost:3131/tables/`+ tableId, options)
-    .then(() => dispatch(updateTableForm(updatedTable)));
-  }
-};
+    fetch(`http://localhost:3131/tables/${tableId}`, options)
+      .then(() => dispatch(updateTableForm(updatedTable, tableId)));
+  };
+}
 
 export const addTableRequest = (newTable) => {
 
@@ -65,12 +65,11 @@ export const deleteTableRequest = (id) => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({id})
     };
 
-    fetch(`http://localhost:3131/tables`+id , options)
-    .then(() => dispatch(deleteTable(id)));
-  }
+    fetch(`http://localhost:3131/tables/${id}`, options)
+      .then(() => dispatch(deleteTable(id)));
+  };
 }
       
 
@@ -88,7 +87,8 @@ const tablesReducer = (statePart = [], action) => {
         return statePart.map(table => (table.id === action.payload.id ? { ...table, ...action.payload } : table));
 
       case ADD_TABLE:
-        return [...statePart, { ...action.payload, id: shortid() }];
+        const newTable = { ...action.payload, id: shortid.generate() };
+        return [...statePart, newTable];
 
       case DELETE_TABLE:
         return statePart.filter((table) => table.id !== action.payload);

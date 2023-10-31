@@ -12,19 +12,26 @@ const UpdateTableForm = () => {
 
     const { tableId } = useParams();
 
+   
+
     const table = useSelector((state) => getTableById(state, tableId));
 
     const handleSubmit = (updatedTable) => {
-        dispatch(requestUpdateTableForm(updatedTable, tableId));
+        dispatch(requestUpdateTableForm({ updatedTable, tableId }));
         navigate('/');
     };
+
+    console.log('table',table)
+
+    console.log(tableId, 'tabelId',
+    table.id, "tableId props"
+    )
 
     return (
         <SingleTable
             tableId = {tableId}
             action = {handleSubmit}
             actionText={'Update'}
-            number={table.number}
             status = {table.status}
             peopleAmount ={table.peopleAmount}
             maxPeopleAmount ={table.maxPeopleAmount}

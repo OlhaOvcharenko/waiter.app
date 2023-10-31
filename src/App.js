@@ -16,7 +16,7 @@ import { Button } from "react-bootstrap";
 import { useState } from "react";
 import { Spinner } from "react-bootstrap";
 import UpdateTable from "./components/views/UpdateTable/UpdateTable";
-import UpdateTableForm from "./components/features/UpdateTableForm/UpdateTableForm";
+
 
 const App = () => {
 
@@ -48,7 +48,7 @@ const App = () => {
         ) : (
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/table/:tableId" element={<UpdateTableForm />} />
+            <Route path="/table/:tableId" element={<UpdateTable />} />
             <Route path="/table/add" element={<AddTable />} />
             <Route path="*" element={<NotFound />}/>
           </Routes>
