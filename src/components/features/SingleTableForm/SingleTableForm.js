@@ -48,8 +48,6 @@ const SingleTableForm = ({ action, actionText, ... props}) => {
        navigate('/');
     };
 
-    console.log("data", props.number, status, peopleAmount, maxPeopleAmount);
-
     const handlePeopleAmount = (e) => {
         const newValue = parseInt(e);
 

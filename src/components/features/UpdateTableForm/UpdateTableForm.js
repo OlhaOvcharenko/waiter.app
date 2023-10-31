@@ -19,8 +19,6 @@ const UpdateTableForm = () => {
         dispatch(updateTableFormRequest({ updatedTable, tableId }));
     };
 
-    console.log('table',table)
-
     if(!table) return <Navigate to="/" />
     else 
 
