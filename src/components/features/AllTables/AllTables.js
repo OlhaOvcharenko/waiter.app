@@ -32,7 +32,7 @@ const AllTables = () => {
                 <Link to={`/table/${table.id}`} className="ms-auto">
                   <Button variant="primary">Show more</Button>
                 </Link>
-                <DeleteTable table={table} />
+                <DeleteTable id={table.id} />
               </Stack>
             ))}
         </Row>

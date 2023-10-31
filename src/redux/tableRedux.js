@@ -58,23 +58,18 @@ export const addTableRequest = (newTable) => {
   }
 };
 
-export const deleteTableRequest = (table) => {
+export const deleteTableRequest = (id) => {
   return (dispatch) => {
     const options = {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ table })
+      body: JSON.stringify({id})
     };
 
-    fetch(`http://localhost:3131/tables/`+table, options)
-      .then((response) => {
-        if (response.status === 204) {
-          // The HTTP 204 status indicates a successful deletion.
-          dispatch(deleteTable(table));
-        }
-      });
+    fetch(`http://localhost:3131/tables`+id , options)
+    .then(() => dispatch(deleteTable(id)));
   }
 }
       

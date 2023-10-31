@@ -16,13 +16,9 @@ const DeleteTable = ({ id }) => {
 
     const dispatch = useDispatch();
 
-    const { tableId } = useParams();
-
-    const table = useSelector((state) => getTableById(state, tableId));
-
     const handleDeleteTable = () => {
        
-        dispatch(deleteTableRequest(table)); // Dispatch the action to remove the post
+        dispatch(deleteTableRequest(id)); // Dispatch the action to remove the post
         handleClose(); // Close the modal
     };
 
