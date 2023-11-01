@@ -91,7 +91,7 @@ const SingleTableForm = ({ action, actionText, ... props}) => {
                 Loading ...
             </Button>}
 
-            <h1 className="py-4">Table {number}</h1>
+            <h1 className="py-4">Table {number+1}</h1>
             <Form style={{ width: '50rem' }} onSubmit={validate(handleSubmit)} >
 
                 <Form.Group as={Row} >

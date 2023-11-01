@@ -1,19 +1,12 @@
 import { useDispatch } from "react-redux";
 import { addTableRequest } from "../../../redux/tableRedux";
 import SingleTable from "../SingleTableForm/SingleTableForm";
-import { useState } from "react";
-import { useSelector } from "react-redux";
-import { getAllTables } from "../../../redux/tableRedux";
-import { useEffect } from "react";
 
 const AddTableForm = () => {
 
   const dispatch = useDispatch();
-  const [newTableNumber, setNewTableNumber] = useState('');
-  const tables = useSelector((state) => getAllTables(state));
-    
 
-  useEffect(() => {
+  /*useEffect(() => {
     // Fetch the existing tables and find the maximum number
     const existingNumbers = tables.map((table) => parseInt(table.number, 10));
     const maxNumber = Math.max(...existingNumbers);
@@ -21,12 +14,12 @@ const AddTableForm = () => {
     // Generate the new number
     const newNumber = maxNumber >= 0 ? maxNumber + 1 : 1;
     setNewTableNumber(newNumber.toString());
-  }, [tables]);
+  }, [tables]);*/
 
 
   const handleSubmit = (status, peopleAmount, maxPeopleAmount, bill) => {
 
-    const newCreatedTable = { status, peopleAmount, maxPeopleAmount, bill, number: newTableNumber}
+    const newCreatedTable = { status, peopleAmount, maxPeopleAmount, bill}
     dispatch(addTableRequest(newCreatedTable));
     console.log(newCreatedTable, "newTable");
 

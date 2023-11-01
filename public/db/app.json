@@ -35,18 +35,9 @@
     {
       "status": "Free",
       "peopleAmount": 0,
-      "maxPeopleAmount": 5,
-      "bill": "0",
-      "number": "5",
-      "id": "oXb7PlX"
-    },
-    {
-      "status": "Busy",
-      "peopleAmount": 0,
       "maxPeopleAmount": 10,
       "bill": "0",
-      "number": "6",
-      "id": "NzqOeGQ"
+      "id": "DOIW_sg"
     }
   ],
   "status": [
