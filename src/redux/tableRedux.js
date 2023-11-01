@@ -32,18 +32,18 @@ export const fetchTables = () => {
   };
 };
 
-export const updateTableFormRequest = ({status, peopleAmount, maxPeopleAmount, bill, number, id}) => {
+export const updateTableFormRequest = (table) => {
   return (dispatch) => {
     const options = {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({status, peopleAmount, maxPeopleAmount, bill, number}),
+      body: JSON.stringify(table),
     };
 
-    fetch(`${API_URL}/tables/${id}`, options)
-      .then(() => dispatch(updateTableForm(status, peopleAmount, maxPeopleAmount, bill, number)))
+    fetch(`${API_URL}/tables/${table.id}`, options)
+      .then(() => dispatch(updateTableForm(table)))
       .catch((error) => {
         console.error('Error updating table:', error);
         // Handle the error as needed.

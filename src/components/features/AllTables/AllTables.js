@@ -26,9 +26,9 @@ const AllTables = () => {
           </div>
         </Stack>
         <Row>
-            {tables.map((table) => (
+            {tables.map((table,index ) => (
               <Stack key={table.id} direction="horizontal" gap = {{ sm: 2, lg: 3 }} className="border-bottom pt-3 ">
-                <h2 className="p-2"> Table {table.number}</h2>
+                <h2 className="p-2"> Table {index+1}</h2>
                 <p><b>Status:</b> {table.status}</p>
                 <Link to={`/table/${table.id}`} className="ms-auto">
                   <Button variant="outline-primary" >Show more</Button>
