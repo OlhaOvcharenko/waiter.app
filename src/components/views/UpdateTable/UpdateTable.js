@@ -1,10 +1,10 @@
 
 import UpdateTableForm from "../../features/UpdateTableForm/UpdateTableForm"
 
-const UpdateTable = ({tableId, updateTable}) => {
+const UpdateTable = () => {
 
     return(
-        <UpdateTableForm tableId={tableId} data={updateTable} />
+        <UpdateTableForm/>
     )
 }
 

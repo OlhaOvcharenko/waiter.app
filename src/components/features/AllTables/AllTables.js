@@ -6,12 +6,12 @@ import { Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import DeleteTable from "../DeleteTable/DeleteTable";
-import { useState } from "react";
-import { useEffect } from "react";
+
 
 const AllTables = () => {
 
     const tables = useSelector((state) => getAllTables(state));
+    console.log(tables, "tables")
     
     return (
       <div>

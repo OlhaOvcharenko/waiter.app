@@ -24,17 +24,19 @@ const AddTableForm = () => {
   }, [tables]);
 
 
-  const handleSubmit = (newTable) => {
+  const handleSubmit = (status, peopleAmount, maxPeopleAmount, bill) => {
 
-    const newCreatedTable = { ...newTable, number: newTableNumber }
+    const newCreatedTable = { status, peopleAmount, maxPeopleAmount, bill, number: newTableNumber}
     dispatch(addTableRequest(newCreatedTable));
+    console.log(newCreatedTable, "newTable");
 
   };
 
    
-  return (
-      <SingleTable action={handleSubmit} actionText="Add table" tableHeader = {'Add Table'} />
-  )
+
+    return (
+        <SingleTable action={handleSubmit} actionText="Add table" tableHeader = {'Add Table'} />
+    )
 }
 
 export default AddTableForm;

@@ -15,8 +15,10 @@ const UpdateTableForm = () => {
 
     const table = useSelector((state) => getTableById(state, tableId));
 
-    const handleSubmit = (updatedTable) => {
-        dispatch(updateTableFormRequest({ updatedTable, tableId }));
+    const handleSubmit = (status, peopleAmount, maxPeopleAmount, bill, number) => {
+
+        dispatch(updateTableFormRequest({status, peopleAmount, maxPeopleAmount, bill, number, id: tableId}));
+        console.log(status, peopleAmount, bill, tableId, "updatedData");
     };
 
     if(!table) return <Navigate to="/" />

@@ -1,6 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
-import { getTableById } from "../../../redux/tableRedux";
-import { useParams } from "react-router-dom";
+import {  useSelector } from "react-redux";
 import { Form } from "react-bootstrap";
 import { Row } from "react-bootstrap";
 import  { Col } from "react-bootstrap";
@@ -10,7 +8,6 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getStatus } from "../../../redux/optiosStatusRedux";
 import { useState } from "react";
-import { requestUpdateTableForm } from "../../../redux/tableRedux";
 import { useForm } from "react-hook-form";
 import { Spinner } from "react-bootstrap";
 
@@ -44,8 +41,9 @@ const SingleTableForm = ({ action, actionText, ... props}) => {
     }, [options]);
 
     const handleSubmit = () => {
-       action({ status, peopleAmount, maxPeopleAmount, bill, number});
+       action(status, peopleAmount, maxPeopleAmount, bill, number);
        navigate('/');
+       console.log(status, peopleAmount, bill, "updatedData");
     };
 
     const handlePeopleAmount = (e) => {

@@ -14,6 +14,8 @@ const DELETE_TABLE = createActionName('DELETE_TABLE')
 
 // actions creators
 export const updateTableForm = payload => ({type: UPDATE_TABLE, payload});
+console.log(updateTableForm, "updatedform", );
+
 export const dataTables = payload => ({type: DATA_TABLES, payload});
 export const addTable = payload => ({type: ADD_TABLE, payload});
 export const deleteTable = payload => ({type: DELETE_TABLE, payload});
@@ -23,24 +25,27 @@ export const fetchTables = () => {
       fetch( API_URL + '/tables')
 
       .then(res => res.json())
-      .then(tables => dispatch(dataTables(tables)))
-  }
+      .then(tables => dispatch(dataTables(tables)));
+  };
 };
 
-export const updateTableFormRequest = ({ updatedTable, tableId }) => {
+export const updateTableFormRequest = ({status, peopleAmount, maxPeopleAmount, bill, number, id}) => {
   return (dispatch) => {
     const options = {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(updatedTable),
+      body: JSON.stringify({status, peopleAmount, maxPeopleAmount, bill, number}),
     };
 
-    fetch(`${API_URL}/tables/${tableId}`, options)
-      .then(() => dispatch(updateTableForm(updatedTable, tableId)));
+    fetch(`${API_URL}/tables/${id}`, options)
+      .then(() => dispatch(updateTableForm(status, peopleAmount, maxPeopleAmount, bill, number)));
+  
   };
 }
+
+
 
 export const addTableRequest = (newTable) => {
 
@@ -55,8 +60,12 @@ export const addTableRequest = (newTable) => {
   
     fetch(`${API_URL}/tables` , options)
       .then(() => dispatch(addTable(newTable)));
+      
+console.log(newTable, "new" );
   }
 };
+
+
 
 export const deleteTableRequest = (id) => {
   return (dispatch) => {
