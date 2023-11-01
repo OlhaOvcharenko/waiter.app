@@ -21,11 +21,14 @@ export const addTable = payload => ({type: ADD_TABLE, payload});
 export const deleteTable = payload => ({type: DELETE_TABLE, payload});
 
 export const fetchTables = () => {
-  return(dispatch) => {
-      fetch( API_URL + '/tables')
-
-      .then(res => res.json())
-      .then(tables => dispatch(dataTables(tables)));
+  return (dispatch) => {
+    fetch(API_URL + '/tables')
+      .then((res) => res.json())
+      .then((tables) => dispatch(dataTables(tables)))
+      .catch((error) => {
+        console.error('Error fetching tables:', error);
+       
+      });
   };
 };
 
@@ -40,8 +43,11 @@ export const updateTableFormRequest = ({status, peopleAmount, maxPeopleAmount, b
     };
 
     fetch(`${API_URL}/tables/${id}`, options)
-      .then(() => dispatch(updateTableForm(status, peopleAmount, maxPeopleAmount, bill, number)));
-  
+      .then(() => dispatch(updateTableForm(status, peopleAmount, maxPeopleAmount, bill, number)))
+      .catch((error) => {
+        console.error('Error updating table:', error);
+        // Handle the error as needed.
+      })
   };
 }
 
